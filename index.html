@@ -1,0 +1,240 @@
+<meta charset="UTF-8">
+<style>
+body {
+   margin: 0 auto;
+   align-items: center;
+  justify-content: center;
+  margin-top: 60px;
+  justify-content: center;
+  background: linear-gradient(135deg, #dedede, #8a8a8a) fixed;
+  font-size: 5em;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-weight: 800;
+  height: 100vh;
+}
+
+section {
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 400px;
+  height: 310px;
+  animation-duration: 2s;
+  animation-name: cube-rotate;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+}
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.collapsible1 {
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 250px;
+  top: 80px;
+  border: none;
+  text-align: center;
+  outline: none;
+  font-size: 15px;
+  position: relative;
+  opacity: 0.4;
+}
+.collapsible2 {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 300px;
+  top: 80px;
+  border: none;
+  text-align: center;
+  outline: none;
+  font-size: 15px;
+  position: relative;
+  opacity: 0.4;
+}
+.collapsible3 {
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  top: 80px;
+  width: 250px;
+  border: none;
+  text-align: center;
+  outline: none;
+  font-size: 15px;
+  position: relative;
+  opacity: 0.4;
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.content {
+    border-radius: 25px;
+    position: absolute;
+    margin-top: 60px;
+    margin-bottom: 100px;;
+    padding: 0 18px;
+    width: 710px;
+    top: 470px;
+    max-height: 0;
+    overflow: hidden;
+    transition:
+        max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    color: white;
+    font-size: 18px;
+    font-family: 'Arial', sans-serif;
+    transform: rotateX(-90deg);
+    will-change: max-height, opacity, transform;
+}
+
+.active + .content {
+    opacity: 0.95;
+    max-height: 400px;
+    transform: rotateX(0deg);
+}
+
+/* Isolation creates a new stacking context for mix-blend-mode. See: https://developer.mozilla.org/en-US/docs/Web/CSS/isolation */
+.isolate {
+  isolation: isolate;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+
+@keyframes cube-rotate {
+  from {
+    transform: perspective(600px) rotate3d(0.6, 0.05, 0.2, 0deg);
+  }
+
+  to {
+    transform: perspective(600px) rotate3d(0.6, 0.05, 0.2, 20deg);
+  }
+}
+
+@keyframes shimmer {
+  from {
+    filter: contrast(190%) brightness(500%);
+  }
+
+  to {
+    filter: contrast(190%) brightness(130%);
+  }
+}
+
+.noise {
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+  background: linear-gradient(24deg, rgba(50 0 255/10%), CornflowerBlue), url("data:image/svg+xml,%3Csvg viewBox='0 0 400 310' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-clip: text;
+  -webkit-background-clip: text;
+	color: transparent;
+  animation-duration: 2s;
+  animation-name: shimmer;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: #5F5F5F;
+  mix-blend-mode: multiply;
+  box-shadow: 1px 3px 3px #000222;
+  z-index: -1;
+}
+
+/* Special case Chrome. mix-blend-mode is treated differently. Works best in Safari! */
+@media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) {
+  .overlay {
+    opacity: 0.4;
+  }
+}
+</style>
+
+<section>
+  <div class="isolate">
+    <div class="noise"> ʷʷʷ. 𝓡i𝚌k Ⓜℰrℰdit𝓱  ➫ • 𝓞nlin𝓮</div>
+    <div class="overlay"></div>
+  </div>
+</section>
+
+<div class="toolbar">
+<button class="collapsible1">software portfolio</button>
+<div class="content">
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+</div>
+<button class="collapsible2">creative works</button>
+<div class="content">
+  <p>ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+</div>
+<button class="collapsible3">contact & links</button>
+<div class="content">
+  <p>dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+</div>
+</div>
+
+<script>
+var coll = document.querySelectorAll('.collapsible1,.collapsible2,.collapsible3');
+var currentlyOpen = null;
+
+for (let i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+        var content = this.nextElementSibling;
+
+        // If another section is open and it's not this one
+        if (currentlyOpen && currentlyOpen !== this) {
+            // Close all others
+            for (let j = 0; j < coll.length; j++) {
+                coll[j].classList.remove("active");
+                var otherContent = coll[j].nextElementSibling;
+                if (otherContent && otherContent.classList.contains("content")) {
+                    otherContent.style.maxHeight = null;
+                }
+            }
+            // Delay opening this one
+            setTimeout(() => {
+                this.classList.add("active");
+                content.style.maxHeight = content.scrollHeight + "px";
+                currentlyOpen = this;
+            }, 250); // 250ms delay
+        } else {
+            // Toggle this one
+            if (content.style.maxHeight) {
+                this.classList.remove("active");
+                content.style.maxHeight = null;
+                currentlyOpen = null;
+            } else {
+                this.classList.add("active");
+                content.style.maxHeight = content.scrollHeight + "px";
+                currentlyOpen = this;
+            }
+        }
+    });
+}
+</script>
+
+
+</meta>
