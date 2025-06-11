@@ -119,10 +119,10 @@ section {
     font-family: 'Arial', sans-serif;
     transform: rotateX(-90deg);
     transform-origin: top;
-    -webkit-transform: rotateX(-90deg);
-    -webkit-transform-origin: top;
     will-change: max-height, opacity, transform;
     -webkit-overflow-scrolling: touch;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
 }
 
 .content * {
@@ -141,6 +141,8 @@ section {
     transform: rotateX(0deg);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
 }
 
 .active + .content * {
@@ -485,7 +487,6 @@ section {
     height: auto !important;
     overflow: visible !important;
     position: relative !important;
-    -webkit-overflow-scrolling: touch !important;
 }
 
 .content section#creative-timeline::before {
@@ -507,7 +508,6 @@ section {
     margin-bottom: 40px !important;
     overflow: visible !important;
     position: relative !important;
-    -webkit-overflow-scrolling: touch !important;
 }
 
 .content section#creative-timeline article div.inner {
@@ -630,20 +630,12 @@ section {
     z-index: 1 !important;
 }
 
-/* Creative Works hover effects */
-.content section#creative-timeline article div.inner:hover {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.12) !important;
-    transform: translateY(-2px) !important;
-    background: #f8f9fa !important;
-}
-
-/* First card spacing below toolbar for Creative Works */
-.content section#creative-timeline article:first-child {
+/* First card spacing below toolbar */
+.content section#timeline article:first-child {
     margin-top: 30px !important;
 }
 
-/* First card spacing below toolbar */
-.content section#timeline article:first-child {
+.content section#creative-timeline article:first-child {
     margin-top: 30px !important;
 }
 
