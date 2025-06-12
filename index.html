@@ -815,15 +815,23 @@ window.addEventListener('scroll', function() {
     const windowHeight = window.innerHeight;
     const documentHeight = document.documentElement.scrollHeight;
     
-    // Calculate scroll percentage (0 to 1)
-    const scrollPercentage = scrollPosition / (documentHeight - windowHeight);
+    // Calculate scroll percentage (0 to 1), but start after 25% scroll
+    const rawScrollPercentage = scrollPosition / (documentHeight - windowHeight);
+    const scrollPercentage = Math.max(0, (rawScrollPercentage - 0.25) / 0.75); // Start at 25%, scale to 0-1
     
-    // Define color stops for the gradient
+    // Only apply color change if we've scrolled past 25%
+    if (rawScrollPercentage < 0.25) {
+        // Keep original colors for first 25%
+        document.body.style.background = `linear-gradient(135deg, #dedede, #8a8a8a)`;
+        return;
+    }
+    
+    // Define more subtle color stops for the gradient
     const colors = [
         { r: 222, g: 222, b: 222 }, // #dedede - starting gray
-        { r: 138, g: 138, b: 138 }, // #8a8a8a - darker gray
-        { r: 100, g: 149, b: 237 }, // #6495ed - blue
-        { r: 25, g: 25, b: 112 }    // #191970 - dark blue
+        { r: 180, g: 180, b: 200 }, // #b4b4c8 - very subtle blue-gray
+        { r: 140, g: 140, b: 180 }, // #8c8cb4 - subtle blue-gray
+        { r: 100, g: 100, b: 160 }  // #6464a0 - darker blue-gray
     ];
     
     // Interpolate between colors based on scroll position
