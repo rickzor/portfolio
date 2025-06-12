@@ -810,11 +810,18 @@ var coll = document.querySelectorAll('.collapsible1,.collapsible2,.collapsible3'
 var currentlyOpen = null;
 
 // Background color change on scroll
+let scrollEffectEnabled = false; // Flag to track if scroll effect should be active
+
 window.addEventListener('scroll', function() {
     // Check if Contact content is open
     const contactButton = document.querySelector('.collapsible3');
     if (contactButton && contactButton.classList.contains('active')) {
         return; // Don't change colors when Contact is open
+    }
+    
+    // Only apply scroll effect if Portfolio or Creative Works has been opened
+    if (!scrollEffectEnabled) {
+        return; // Keep original colors until content is opened
     }
     
     const scrollPosition = window.scrollY;
@@ -878,6 +885,11 @@ window.addEventListener('scroll', function() {
 for (let i = 0; i < coll.length; i++) {
     coll[i].addEventListener("click", function() {
         var content = this.nextElementSibling;
+
+        // Enable scroll effect if Portfolio or Creative Works is clicked
+        if (this.classList.contains('collapsible1') || this.classList.contains('collapsible2')) {
+            scrollEffectEnabled = true;
+        }
 
         // If another section is open and it's not this one
         if (currentlyOpen && currentlyOpen !== this) {
