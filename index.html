@@ -291,6 +291,13 @@ section {
     background-repeat: no-repeat !important;
     min-height: 400px !important;
     position: relative !important;
+    cursor: pointer !important;
+}
+
+.content section#timeline article div.inner.expanded {
+    transform: scale(1.05) !important;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.25), 0 8px 20px rgba(0,0,0,0.15) !important;
+    z-index: 10 !important;
 }
 
 .content section#timeline article div.inner::before {
@@ -361,9 +368,14 @@ section {
 }
 
 .content section#timeline article div.inner:hover {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.12) !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2), 0 6px 15px rgba(0,0,0,0.12) !important;
     transform: translateY(-2px) !important;
     background: #f8f9fa !important;
+}
+
+.content section#timeline article div.inner.expanded:hover {
+    transform: scale(1.08) !important;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3), 0 10px 25px rgba(0,0,0,0.2) !important;
 }
 
 .content section#timeline article div.inner span.date {
@@ -528,6 +540,13 @@ section {
     backdrop-filter: blur(10px) !important;
     min-height: 400px !important;
     position: relative !important;
+    cursor: pointer !important;
+}
+
+.content section#creative-timeline article div.inner.expanded {
+    transform: scale(1.05) !important;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.25), 0 8px 20px rgba(0,0,0,0.15) !important;
+    z-index: 10 !important;
 }
 
 .content section#creative-timeline article div.inner::before {
@@ -666,6 +685,17 @@ section {
     border-radius: 50%;
     background: rgba(255,255,255,0.6);
     pointer-events: none;
+}
+
+.content section#creative-timeline article div.inner:hover {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2), 0 6px 15px rgba(0,0,0,0.12) !important;
+    transform: translateY(-2px) !important;
+    background: #f8f9fa !important;
+}
+
+.content section#creative-timeline article div.inner.expanded:hover {
+    transform: scale(1.08) !important;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3), 0 10px 25px rgba(0,0,0,0.2) !important;
 }
 
 </style>
@@ -917,6 +947,10 @@ for (let i = 0; i < coll.length; i++) {
                 content.style.maxHeight = "none";
                 setTimeout(() => {
                     content.style.maxHeight = content.scrollHeight + "px";
+                    // Initialize card interactions for Portfolio or Creative Works
+                    if (this.classList.contains('collapsible1') || this.classList.contains('collapsible2')) {
+                        initializeCardInteractions();
+                    }
                     // Safari scroll fix
                     if (navigator.userAgent.includes('Safari') && !navigator.userAgent.includes('Chrome')) {
                         setTimeout(() => {
@@ -938,6 +972,10 @@ for (let i = 0; i < coll.length; i++) {
                 content.style.maxHeight = "none";
                 setTimeout(() => {
                     content.style.maxHeight = content.scrollHeight + "px";
+                    // Initialize card interactions for Portfolio or Creative Works
+                    if (this.classList.contains('collapsible1') || this.classList.contains('collapsible2')) {
+                        initializeCardInteractions();
+                    }
                     // Safari scroll fix
                     if (navigator.userAgent.includes('Safari') && !navigator.userAgent.includes('Chrome')) {
                         setTimeout(() => {
@@ -1179,6 +1217,48 @@ window.addEventListener('resize', function() {
 });
 
 var coll = document.querySelectorAll('.collapsible1,.collapsible2,.collapsible3');
+
+// Initialize draggable cards when content is opened
+function initializeDraggableCards() {
+    setTimeout(makeCardsDraggable, 100);
+}
+
+// Card click functionality
+function initializeCardClicks() {
+    const cards = document.querySelectorAll('.content section#timeline article div.inner, .content section#creative-timeline article div.inner');
+    
+    cards.forEach(card => {
+        // Remove any existing click listeners to prevent duplicates
+        card.removeEventListener('click', cardClickHandler);
+        card.addEventListener('click', cardClickHandler);
+    });
+}
+
+// Separate function for the click handler
+function cardClickHandler(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // Toggle expanded state
+    if (this.classList.contains('expanded')) {
+        this.classList.remove('expanded');
+    } else {
+        // Remove expanded class from all other cards first
+        const allCards = document.querySelectorAll('.content section#timeline article div.inner, .content section#creative-timeline article div.inner');
+        allCards.forEach(otherCard => {
+            otherCard.classList.remove('expanded');
+        });
+        // Add expanded class to clicked card
+        this.classList.add('expanded');
+    }
+}
+
+// Initialize card clicks when content is opened
+function initializeCardInteractions() {
+    setTimeout(() => {
+        initializeCardClicks();
+    }, 100);
+}
 </script>
 
 
