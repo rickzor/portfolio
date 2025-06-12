@@ -811,6 +811,12 @@ var currentlyOpen = null;
 
 // Background color change on scroll
 window.addEventListener('scroll', function() {
+    // Check if Contact content is open
+    const contactButton = document.querySelector('.collapsible3');
+    if (contactButton && contactButton.classList.contains('active')) {
+        return; // Don't change colors when Contact is open
+    }
+    
     const scrollPosition = window.scrollY;
     const windowHeight = window.innerHeight;
     const documentHeight = document.documentElement.scrollHeight;
