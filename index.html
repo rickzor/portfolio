@@ -810,11 +810,18 @@ var coll = document.querySelectorAll('.collapsible1,.collapsible2,.collapsible3'
 var currentlyOpen = null;
 
 // Background color change on scroll
+let scrollEffectEnabled = false; // Flag to track if scroll effect should be active
+
 window.addEventListener('scroll', function() {
     // Check if Contact content is open
     const contactButton = document.querySelector('.collapsible3');
     if (contactButton && contactButton.classList.contains('active')) {
         return; // Don't change colors when Contact is open
+    }
+    
+    // Only apply scroll effect if Portfolio or Creative Works has been opened
+    if (!scrollEffectEnabled) {
+        return; // Keep original colors until content is opened
     }
     
     const scrollPosition = window.scrollY;
@@ -878,6 +885,11 @@ window.addEventListener('scroll', function() {
 for (let i = 0; i < coll.length; i++) {
     coll[i].addEventListener("click", function() {
         var content = this.nextElementSibling;
+
+        // Enable scroll effect if Portfolio or Creative Works is clicked
+        if (this.classList.contains('collapsible1') || this.classList.contains('collapsible2')) {
+            scrollEffectEnabled = true;
+        }
 
         // If another section is open and it's not this one
         if (currentlyOpen && currentlyOpen !== this) {
@@ -964,7 +976,9 @@ function startPhysics() {
 // Start physics when page loads
 setTimeout(startPhysics, 100);
 
+// Mouse events
 ball.addEventListener('mousedown', function(e) {
+    e.preventDefault();
     isDragging = true;
     startX = e.clientX - ball.offsetLeft;
     startY = e.clientY - ball.offsetTop;
@@ -979,6 +993,25 @@ ball.addEventListener('mousedown', function(e) {
     velocityY = 0;
 });
 
+// Touch events
+ball.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+    isDragging = true;
+    const touch = e.touches[0];
+    startX = touch.clientX - ball.offsetLeft;
+    startY = touch.clientY - ball.offsetTop;
+    lastMouseX = touch.clientX;
+    lastMouseY = touch.clientY;
+    mouseVelocityX = 0;
+    mouseVelocityY = 0;
+    ball.style.cursor = 'grabbing';
+    
+    // Stop any existing momentum
+    velocityX = 0;
+    velocityY = 0;
+});
+
+// Mouse move
 document.addEventListener('mousemove', function(e) {
     if (!isDragging) return;
     
@@ -1002,6 +1035,34 @@ document.addEventListener('mousemove', function(e) {
     ball.style.top = ballY + 'px';
 });
 
+// Touch move
+document.addEventListener('touchmove', function(e) {
+    if (!isDragging) return;
+    e.preventDefault();
+    
+    const touch = e.touches[0];
+    
+    // Calculate touch velocity
+    mouseVelocityX = touch.clientX - lastMouseX;
+    mouseVelocityY = touch.clientY - lastMouseY;
+    lastMouseX = touch.clientX;
+    lastMouseY = touch.clientY;
+    
+    ballX = touch.clientX - startX;
+    ballY = touch.clientY - startY;
+    
+    // Keep ball within screen bounds
+    const maxX = window.innerWidth - ball.offsetWidth;
+    const maxY = window.innerHeight - ball.offsetHeight;
+    
+    ballX = Math.max(0, Math.min(ballX, maxX));
+    ballY = Math.max(0, Math.min(ballY, maxY));
+    
+    ball.style.left = ballX + 'px';
+    ball.style.top = ballY + 'px';
+});
+
+// Mouse up
 document.addEventListener('mouseup', function() {
     if (!isDragging) return;
     
@@ -1009,6 +1070,27 @@ document.addEventListener('mouseup', function() {
     ball.style.cursor = 'grab';
     
     // Use the mouse velocity for the throw
+    velocityX = mouseVelocityX * 0.3;
+    velocityY = mouseVelocityY * 0.3 - 2; // Add upward boost for natural throw feel
+    
+    // Ensure minimum velocity for interesting movement
+    if (Math.abs(velocityX) < 1 && Math.abs(velocityY) < 1) {
+        velocityX = Math.random() > 0.5 ? 6 : -6; // Random left or right
+        velocityY = -4; // Upward throw
+    }
+    
+    // Continue physics simulation
+    continuePhysics();
+});
+
+// Touch end
+document.addEventListener('touchend', function(e) {
+    if (!isDragging) return;
+    
+    isDragging = false;
+    ball.style.cursor = 'grab';
+    
+    // Use the touch velocity for the throw
     velocityX = mouseVelocityX * 0.3;
     velocityY = mouseVelocityY * 0.3 - 2; // Add upward boost for natural throw feel
     
@@ -1069,7 +1151,7 @@ function continuePhysics() {
     requestAnimationFrame(continuePhysics);
 }
 
-// Add hover effect
+// Add hover effect (mouse only)
 ball.addEventListener('mouseenter', function() {
     if (!isDragging) {
         ball.style.transform = 'scale(1.1)';
