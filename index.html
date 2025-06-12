@@ -102,17 +102,17 @@ section {
 .content {
     border-radius: 25px;
     position: absolute;
-    margin-top: 60px;
+    margin-top: 40px;
     margin-bottom: 100px;;
     padding: 0 18px;
     width: 710px;
-    top: 470px;
+    top: 450px;
     max-height: 0;
     overflow: hidden;
     transition:
-        max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-        opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
     color: white;
     font-size: 18px;
@@ -123,6 +123,7 @@ section {
     -webkit-overflow-scrolling: touch;
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
+    opacity: 0;
 }
 
 .content * {
@@ -136,7 +137,7 @@ section {
 }
 
 .active + .content {
-    opacity: 0.95;
+    opacity: 1;
     max-height: 3000px;
     transform: rotateX(0deg);
     overflow-y: auto;
@@ -620,7 +621,56 @@ section {
     margin-top: 30px !important;
 }
 
+/* 3D Ball Styles */
+.ball {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #ffffff, #e0e0e0, #c0c0c0);
+    box-shadow: 
+        inset -4px -4px 8px rgba(0,0,0,0.3),
+        inset 4px 4px 8px rgba(255,255,255,0.8),
+        0 8px 16px rgba(0,0,0,0.2);
+    cursor: grab;
+    z-index: 1000;
+    transition: transform 0.1s ease-out;
+    user-select: none;
+    pointer-events: auto;
+}
+
+.ball:active {
+    cursor: grabbing;
+    transform: scale(0.95);
+}
+
+.ball::before {
+    content: '';
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    width: 20%;
+    height: 20%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.8), rgba(255,255,255,0.3));
+    pointer-events: none;
+}
+
+.ball::after {
+    content: '';
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    width: 8%;
+    height: 8%;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.6);
+    pointer-events: none;
+}
+
 </style>
+
+<div class="ball" id="ball"></div>
 
 <section>
   <div class="isolate">
@@ -759,6 +809,72 @@ section {
 var coll = document.querySelectorAll('.collapsible1,.collapsible2,.collapsible3');
 var currentlyOpen = null;
 
+// Background color change on scroll
+window.addEventListener('scroll', function() {
+    // Check if Contact content is open
+    const contactButton = document.querySelector('.collapsible3');
+    if (contactButton && contactButton.classList.contains('active')) {
+        return; // Don't change colors when Contact is open
+    }
+    
+    const scrollPosition = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    
+    // Calculate scroll percentage (0 to 1), but start after 25% scroll
+    const rawScrollPercentage = scrollPosition / (documentHeight - windowHeight);
+    const scrollPercentage = Math.max(0, (rawScrollPercentage - 0.25) / 0.75); // Start at 25%, scale to 0-1
+    
+    // Only apply color change if we've scrolled past 25%
+    if (rawScrollPercentage < 0.25) {
+        // Keep original colors for first 25%
+        document.body.style.background = `linear-gradient(135deg, #dedede, #8a8a8a)`;
+        return;
+    }
+    
+    // Define more subtle color stops for the gradient
+    const colors = [
+        { r: 222, g: 222, b: 222 }, // #dedede - starting gray
+        { r: 180, g: 180, b: 200 }, // #b4b4c8 - very subtle blue-gray
+        { r: 140, g: 140, b: 180 }, // #8c8cb4 - subtle blue-gray
+        { r: 100, g: 100, b: 160 }  // #6464a0 - darker blue-gray
+    ];
+    
+    // Interpolate between colors based on scroll position
+    const colorIndex = scrollPercentage * (colors.length - 1);
+    const color1Index = Math.floor(colorIndex);
+    const color2Index = Math.min(color1Index + 1, colors.length - 1);
+    const colorBlend = colorIndex - color1Index;
+    
+    const color1 = colors[color1Index];
+    const color2 = colors[color2Index];
+    
+    // Blend the two colors
+    const r = Math.round(color1.r + (color2.r - color1.r) * colorBlend);
+    const g = Math.round(color1.g + (color2.g - color1.g) * colorBlend);
+    const b = Math.round(color1.b + (color2.b - color1.b) * colorBlend);
+    
+    // Update the background
+    document.body.style.background = `linear-gradient(135deg, rgb(${r}, ${g}, ${b}), rgb(${Math.round(r*0.7)}, ${Math.round(g*0.7)}, ${Math.round(b*0.7)}))`;
+    
+    // Also update the fixed background pseudo-element
+    const style = document.createElement('style');
+    style.textContent = `
+        body::before {
+            background: linear-gradient(135deg, rgb(${r}, ${g}, ${b}), rgb(${Math.round(r*0.7)}, ${Math.round(g*0.7)}, ${Math.round(b*0.7)})) !important;
+        }
+    `;
+    
+    // Remove any existing dynamic style
+    const existingStyle = document.getElementById('dynamic-bg-style');
+    if (existingStyle) {
+        existingStyle.remove();
+    }
+    
+    style.id = 'dynamic-bg-style';
+    document.head.appendChild(style);
+});
+
 for (let i = 0; i < coll.length; i++) {
     coll[i].addEventListener("click", function() {
         var content = this.nextElementSibling;
@@ -813,6 +929,165 @@ for (let i = 0; i < coll.length; i++) {
         }
     });
 }
+
+// 3D Ball Interaction
+const ball = document.getElementById('ball');
+let isDragging = false;
+let startX, startY, ballX, ballY;
+let velocityX = 0;
+let velocityY = 0;
+let lastMouseX = 0;
+let lastMouseY = 0;
+let mouseVelocityX = 0;
+let mouseVelocityY = 0;
+
+// Physics constants
+const gravity = 0.5;
+const bounceDamping = 0.7;
+const friction = 0.98;
+let groundY = window.innerHeight - 60; // Ball height
+
+// Position ball in top-left corner initially
+ball.style.left = '20px';
+ball.style.top = '20px';
+
+// Start physics simulation with diagonal throw
+function startPhysics() {
+    if (!isDragging) {
+        // Give the ball initial diagonal velocity (throw across screen)
+        velocityX = 8; // Horizontal velocity to the right
+        velocityY = -3; // Upward velocity (negative for upward movement)
+        continuePhysics();
+    }
+}
+
+// Start physics when page loads
+setTimeout(startPhysics, 100);
+
+ball.addEventListener('mousedown', function(e) {
+    isDragging = true;
+    startX = e.clientX - ball.offsetLeft;
+    startY = e.clientY - ball.offsetTop;
+    lastMouseX = e.clientX;
+    lastMouseY = e.clientY;
+    mouseVelocityX = 0;
+    mouseVelocityY = 0;
+    ball.style.cursor = 'grabbing';
+    
+    // Stop any existing momentum
+    velocityX = 0;
+    velocityY = 0;
+});
+
+document.addEventListener('mousemove', function(e) {
+    if (!isDragging) return;
+    
+    // Calculate mouse velocity
+    mouseVelocityX = e.clientX - lastMouseX;
+    mouseVelocityY = e.clientY - lastMouseY;
+    lastMouseX = e.clientX;
+    lastMouseY = e.clientY;
+    
+    ballX = e.clientX - startX;
+    ballY = e.clientY - startY;
+    
+    // Keep ball within screen bounds
+    const maxX = window.innerWidth - ball.offsetWidth;
+    const maxY = window.innerHeight - ball.offsetHeight;
+    
+    ballX = Math.max(0, Math.min(ballX, maxX));
+    ballY = Math.max(0, Math.min(ballY, maxY));
+    
+    ball.style.left = ballX + 'px';
+    ball.style.top = ballY + 'px';
+});
+
+document.addEventListener('mouseup', function() {
+    if (!isDragging) return;
+    
+    isDragging = false;
+    ball.style.cursor = 'grab';
+    
+    // Use the mouse velocity for the throw
+    velocityX = mouseVelocityX * 0.3;
+    velocityY = mouseVelocityY * 0.3 - 2; // Add upward boost for natural throw feel
+    
+    // Ensure minimum velocity for interesting movement
+    if (Math.abs(velocityX) < 1 && Math.abs(velocityY) < 1) {
+        velocityX = Math.random() > 0.5 ? 6 : -6; // Random left or right
+        velocityY = -4; // Upward throw
+    }
+    
+    // Continue physics simulation
+    continuePhysics();
+});
+
+function continuePhysics() {
+    if (isDragging) return; // Don't run physics while dragging
+    
+    const currentX = parseFloat(ball.style.left) || 0;
+    const currentY = parseFloat(ball.style.top) || 0;
+    
+    // Apply gravity
+    velocityY += gravity;
+    
+    let newX = currentX + velocityX;
+    let newY = currentY + velocityY;
+    
+    // Bounce off screen edges
+    const maxX = window.innerWidth - ball.offsetWidth;
+    
+    if (newX <= 0 || newX >= maxX) {
+        velocityX = -velocityX * bounceDamping;
+        newX = Math.max(0, Math.min(newX, maxX));
+    }
+    
+    // Ground collision and bounce
+    if (newY >= groundY) {
+        newY = groundY;
+        velocityY = -velocityY * bounceDamping;
+        
+        // Apply friction when on ground
+        velocityX *= friction;
+        
+        // Stop if velocity is very low and on ground
+        if (Math.abs(velocityX) < 0.5 && Math.abs(velocityY) < 2) {
+            return;
+        }
+    }
+    
+    // Ceiling collision
+    if (newY <= 0) {
+        newY = 0;
+        velocityY = -velocityY * bounceDamping;
+    }
+    
+    ball.style.left = newX + 'px';
+    ball.style.top = newY + 'px';
+    
+    // Continue animation
+    requestAnimationFrame(continuePhysics);
+}
+
+// Add hover effect
+ball.addEventListener('mouseenter', function() {
+    if (!isDragging) {
+        ball.style.transform = 'scale(1.1)';
+    }
+});
+
+ball.addEventListener('mouseleave', function() {
+    if (!isDragging) {
+        ball.style.transform = 'scale(1)';
+    }
+});
+
+// Update ground position on window resize
+window.addEventListener('resize', function() {
+    groundY = window.innerHeight - 60;
+});
+
+var coll = document.querySelectorAll('.collapsible1,.collapsible2,.collapsible3');
 </script>
 
 
