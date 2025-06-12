@@ -819,9 +819,23 @@ window.addEventListener('scroll', function() {
         return; // Don't change colors when Contact is open
     }
     
-    // Only apply scroll effect if Portfolio or Creative Works has been opened
-    if (!scrollEffectEnabled) {
-        return; // Keep original colors until content is opened
+    // Check if Portfolio or Creative Works is actually open
+    const portfolioButton = document.querySelector('.collapsible1');
+    const creativeButton = document.querySelector('.collapsible2');
+    const isPortfolioOpen = portfolioButton && portfolioButton.classList.contains('active');
+    const isCreativeOpen = creativeButton && creativeButton.classList.contains('active');
+    
+    // Only apply scroll effect if Portfolio or Creative Works content is open
+    if (!isPortfolioOpen && !isCreativeOpen) {
+        // Reset to original colors when no content is open
+        document.body.style.background = `linear-gradient(135deg, #dedede, #8a8a8a)`;
+        
+        // Remove any existing dynamic style
+        const existingStyle = document.getElementById('dynamic-bg-style');
+        if (existingStyle) {
+            existingStyle.remove();
+        }
+        return;
     }
     
     const scrollPosition = window.scrollY;
@@ -885,11 +899,6 @@ window.addEventListener('scroll', function() {
 for (let i = 0; i < coll.length; i++) {
     coll[i].addEventListener("click", function() {
         var content = this.nextElementSibling;
-
-        // Enable scroll effect if Portfolio or Creative Works is clicked
-        if (this.classList.contains('collapsible1') || this.classList.contains('collapsible2')) {
-            scrollEffectEnabled = true;
-        }
 
         // If another section is open and it's not this one
         if (currentlyOpen && currentlyOpen !== this) {
