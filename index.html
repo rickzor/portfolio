@@ -697,7 +697,138 @@ section {
     transform: scale(1.08) !important;
     box-shadow: 0 15px 40px rgba(0,0,0,0.3), 0 10px 25px rgba(0,0,0,0.2) !important;
 }
+.image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 200px;
+  width: 200px;
+  margin-top: -110px;
+  margin-left: -105px;
+  border: 5px solid #fff;
+  border-bottom-width: 15px;
+  -moz-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
+  -webkit-box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
+  box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25);
+  z-index: 2;
+  -moz-transition: -moz-transform 0.3s ease-in-out;
+  -o-transition: -o-transform 0.3s ease-in-out;
+  -webkit-transition: -webkit-transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
+}
+.image:first-child {
+  -moz-transform: rotate(8deg);
+  -ms-transform: rotate(8deg);
+  -webkit-transform: rotate(8deg);
+  transform: rotate(8deg);
+}
+.image:nth-child(2) {
+  -moz-transform: rotate(2deg);
+  -ms-transform: rotate(2deg);
+  -webkit-transform: rotate(2deg);
+  transform: rotate(2deg);
+}
+.image:nth-child(3) {
+  -moz-transform: rotate(-3deg);
+  -ms-transform: rotate(-3deg);
+  -webkit-transform: rotate(-3deg);
+  transform: rotate(-3deg);
+}
+.image:nth-child(4) {
+  -moz-transform: rotate(-10deg);
+  -ms-transform: rotate(-10deg);
+  -webkit-transform: rotate(-10deg);
+  transform: rotate(-10deg);
+}
+.image:last-child {
+  -moz-transform: rotate(-5deg);
+  -ms-transform: rotate(-5deg);
+  -webkit-transform: rotate(-5deg);
+  transform: rotate(-5deg);
+}
+.images:hover .image:nth-child(4) {
+  -moz-transform: rotate(10deg) translateX(50px);
+  -ms-transform: rotate(10deg) translateX(50px);
+  -webkit-transform: rotate(10deg) translateX(50px);
+  transform: rotate(10deg) translateX(50px);
+}
+.images:hover .image:nth-child(3) {
+  -moz-transform: rotate(3deg) translateX(75px);
+  -ms-transform: rotate(3deg) translateX(75px);
+  -webkit-transform: rotate(3deg) translateX(75px);
+  transform: rotate(3deg) translateX(75px);
+}
+.images:hover .image:nth-child(2) {
+  -moz-transform: rotate(-2deg) translateX(-50px);
+  -ms-transform: rotate(-2deg) translateX(-50px);
+  -webkit-transform: rotate(-2deg) translateX(-50px);
+  transform: rotate(-2deg) translateX(-50px);
+}
+.images:hover .image:first-child {
+  -moz-transform: rotate(-8deg) translateX(-75px) translateY(-10px);
+  -ms-transform: rotate(-8deg) translateX(-75px) translateY(-10px);
+  -webkit-transform: rotate(-8deg) translateX(-75px) translateY(-10px);
+  transform: rotate(-8deg) translateX(-75px) translateY(-10px);
+}
+.image.slide-right {
+  -moz-transform: rotate(290deg) translateX(250px);
+  -ms-transform: rotate(290deg) translateX(250px);
+  -webkit-transform: rotate(290deg) translateX(250px);
+  transform: rotate(290deg) translateX(250px);
+}
+.image.slide-left {
+  -moz-transform: rotate(-290deg) translateX(-250px);
+  -ms-transform: rotate(-290deg) translateX(-250px);
+  -webkit-transform: rotate(-290deg) translateX(-250px);
+  transform: rotate(-290deg) translateX(-250px);
+}
+.image.back { z-index: 1; }
 
+.collapsible3 + .content .images {
+    position: relative !important;
+    width: 100% !important;
+    height: 600px !important; /* was 400px */
+    margin: 100px auto !important;
+    perspective: 1000px !important;
+    transform-style: preserve-3d !important;
+}
+
+.collapsible3 + .content .images .image {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    height: 300px !important; /* was 200px */
+    width: 300px !important;  /* was 200px */
+    margin-top: -160px !important; /* was -110px */
+    margin-left: -155px !important; /* was -105px */
+    border: 5px solid #fff !important;
+    border-bottom-width: 15px !important;
+    box-shadow: 0 2px 5px rgba(30, 30, 30, 0.25) !important;
+    z-index: 2 !important;
+    background: #fff !important;
+    transform-style: preserve-3d !important;
+}
+
+/* Default spread-out arrangement for Contact section */
+.collapsible3 + .content .images .image:first-child {
+    transform: rotate(-8deg) translateX(-112px) translateY(-15px) !important; /* 1.5x */
+}
+
+.collapsible3 + .content .images .image:nth-child(2) {
+    transform: rotate(-2deg) translateX(-75px) !important; /* 1.5x */
+}
+
+.collapsible3 + .content .images .image:nth-child(3) {
+    transform: rotate(3deg) translateX(112px) !important; /* 1.5x */
+}
+
+.collapsible3 + .content .images .image:nth-child(4) {
+    transform: rotate(10deg) translateX(75px) !important; /* 1.5x */
+}
+
+.collapsible3 + .content .images .image:last-child {
+    transform: rotate(-5deg) !important;
+}
 </style>
 
 <div class="ball" id="ball"></div>
@@ -841,7 +972,15 @@ section {
 </div>
 <button class="collapsible3">𝓒ontact</button>
 <div class="content">
-  <p>dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+  <p><br /></p>
+  <div class="images">
+  <img class="image" src="./img/1.jpg">
+  <img class="image" src="./img/2.jpg">
+  <img class="image" src="./img/3.jpg">
+  <img class="image" src="./img/4.jpg">
+  <img class="image" src="./img/5.jpg">
+<br /><br /><br /><br /><br />
+</div>
 </div>
 </div>
 
@@ -1269,6 +1408,95 @@ function initializeCardInteractions() {
         initializeCardClicks();
     }, 100);
 }
+(function() {
+  var cssTransition, imageOffset, imageWidth, images, queue, timeout, touch;
+  cssTransition = function() {
+    var body, i, len, style, vendor, vendors;
+    body = document.body || document.documentElement;
+    style = body.style;
+    vendors = ['Moz', 'Webkit', 'O'];
+    if (typeof style['transition'] === 'string') {
+      return true;
+    }
+    for (i = 0, len = vendors.length; i < len; i++) {if (window.CP.shouldStopExecution(1)){break;}
+      vendor = vendors[i];
+      if (typeof style[vendor + 'Transition'] === 'string') {
+        return true;
+      }
+    }
+window.CP.exitedLoop(1);
+    return false;
+  };
+  queue = false;
+  touch = document.documentElement['ontouchstart'] !== void 0;
+  images = document.querySelector('.images');
+  imageWidth = images.firstElementChild.offsetWidth;
+  imageOffset = images.firstElementChild.offsetLeft;
+  timeout = cssTransition() ? [300, 400] : [0, 0];
+
+  // --- Improved bring-to-front logic for image stack ---
+  function bringImageToFront(img) {
+    if (!images || !img) return;
+    // Collect all images in current order
+    var imgNodes = Array.from(images.children).filter(i => i.classList && i.classList.contains('image'));
+    // If already last, do nothing
+    if (img === imgNodes[imgNodes.length - 1]) return;
+    // Remove and re-append in correct order: clicked image last, others in order
+    var newOrder = imgNodes.filter(i => i !== img);
+    newOrder.push(img);
+    // Remove only .image nodes from parent (leave <br> etc. untouched)
+    imgNodes.forEach(i => images.removeChild(i));
+    // Insert images before any non-image nodes (e.g. <br>)
+    var firstNonImage = Array.from(images.childNodes).find(n => !(n.classList && n.classList.contains('image')));
+    newOrder.forEach(i => {
+      if (firstNonImage) {
+        images.insertBefore(i, firstNonImage);
+      } else {
+        images.appendChild(i);
+      }
+    });
+  }
+
+  // Add event listeners to each image for click/tap
+  function setupImageStackInteraction() {
+    var imgNodes = images.querySelectorAll('.image');
+    imgNodes.forEach(function(img) {
+      img.addEventListener(touch ? 'touchend' : 'click', function(e) {
+        e.stopPropagation();
+        bringImageToFront(img);
+      });
+    });
+  }
+  setupImageStackInteraction();
+  // If images are dynamically changed, call setupImageStackInteraction() again.
+
+  // --- Existing carousel code (still works for clicking empty space) ---
+  images.addEventListener((touch ? 'touchend' : 'click'), function(event) {
+    // Only trigger carousel if the click/tap is NOT on an image
+    if (event.target.classList.contains('image')) return;
+    var direction, lastClassList;
+    if (queue) {
+      return;
+    }
+    queue = true;
+    if (((touch ? event.changedTouches[0].pageX : event.pageX) - imageOffset) > imageWidth / 2) {
+      direction = 'slide-right';
+    } else {
+      direction = 'slide-left';
+    }
+    lastClassList = images.lastElementChild.classList;
+    lastClassList.add(direction);
+    return setTimeout(function() {
+      lastClassList.remove(direction);
+      lastClassList.add('back');
+      return setTimeout(function() {
+        images.insertBefore(images.lastElementChild, images.firstElementChild);
+        lastClassList.remove('back');
+        return queue = false;
+      }, timeout[0]);
+    }, timeout[1]);
+  }, false);
+}).call(this);
 </script>
 
 
