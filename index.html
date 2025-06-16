@@ -1389,6 +1389,11 @@ function initializeCardClicks() {
 
 // Separate function for the click handler
 function cardClickHandler(e) {
+    // If the clicked element is a link, don't handle the card click
+    if (e.target.tagName === 'A' || e.target.closest('a')) {
+        return; // Let the link handle its own click
+    }
+    
     e.preventDefault();
     e.stopPropagation();
     
