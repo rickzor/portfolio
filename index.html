@@ -324,27 +324,27 @@ section {
 }
 
 .content section#timeline article:nth-child(2) div.inner::before {
-    background-image: url('./img/deepyoutube.png') !important;
-}
-
-.content section#timeline article:nth-child(3) div.inner::before {
     background-image: url('./img/DataMergeTool.png') !important;
 }
 
-.content section#timeline article:nth-child(4) div.inner::before {
+.content section#timeline article:nth-child(3) div.inner::before {
     background-image: url('./img/HL7Visualizer.png') !important;
 }
 
+.content section#timeline article:nth-child(4) div.inner::before {
+    background-image: url('./img/deepyoutube.png') !important;
+}
+
 .content section#timeline article:nth-child(5) div.inner::before {
-    background-image: url('./img/RightFax.png') !important;
+    background-image: url('./img/ActiveDirectory.png') !important;
 }
 
 .content section#timeline article:nth-child(6) div.inner::before {
-    background-image: url('./img/BarcodeTool.png') !important;
+    background-image: url('./img/RightFax.png') !important;
 }
 
 .content section#timeline article:nth-child(7) div.inner::before {
-    background-image: url('./img/ActiveDirectory.png') !important;
+    background-image: url('./img/BarcodeTool.png') !important;
 }
 
 .content section#timeline article:nth-child(4n+1) div.inner {
@@ -396,6 +396,21 @@ section {
     z-index: 1 !important;
     margin-top: 160px !important;
 }
+.content section#timeline article div.inner span.label {
+    background: #dba934 !important;
+    color: white !important;
+    padding: 8px 16px !important;
+    border-radius: 20px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    display: inline-block !important;
+    margin-bottom: 15px !important;
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3) !important;
+    position: relative !important;
+    z-index: 1 !important;
+    margin-top: 160px !important;
+}
+
 
 .content section#timeline article div.inner h2 {
     color: #2c3e50 !important;
@@ -492,11 +507,11 @@ section {
 }
 
 .content section#creative-timeline article:nth-child(4) div.inner::before {
-    background-image: url('./img/SnowfallTapes.jpeg') !important;
+    background-image: url('./img/Magnet.jpg') !important;
 }
 
 .content section#creative-timeline article:nth-child(5) div.inner::before {
-    background-image: url('./img/Magnet.jpg') !important;
+    background-image: url('./img/SnowfallTapes.jpeg') !important;
 }
 
 /* Creative Works - General timeline styling */
@@ -791,8 +806,7 @@ section {
 .collapsible3 + .content .images {
     position: relative !important;
     width: 100% !important;
-    height: 600px !important; /* was 400px */
-    margin: 100px auto !important;
+    height: 400px !important; /* was 400px */
     perspective: 1000px !important;
     transform-style: preserve-3d !important;
 }
@@ -850,73 +864,66 @@ section {
   <section id="timeline">
     <article>
       <div class="inner">
-        <span class="date">
-        <span class="year">2025</span>
-        </span>
+        <span class="date">2025</span>
         <h2>Develop Film Online</h2>
         <small>React/Node.JS/HTML/CSS <a href="https://github.com/rickzor/developfilm">GitHub Link</small></a><br />
         <p>
           Developed a web platform with React frontend and Node.js backend using the OpenAI API. Features include film developing guides, interactive film chemistry timers and AI driven critique of user uploads.</p>
       </div>
     </article>
+    
     <article>
       <div class="inner">
-        <span class="date">
-          <span class="year">2017</span>
-        </span>
-        <h2>Deep YouTube</h2>
-        <small>C#/.NET/HTML/CSS <a href="https://deepvids.azurewebsites.net">Web app link</a> (API currently offline)</small>
-        <p>Created a .NET web app using the (now offline) YouTube API. The application presents the viewer with a youtube video where they are the very first viewer. The user can click "next" and be presented with a new, never-before-seen video. App currently non functional due to YouTube API changes.</p>
-      </div>
-    </article>
-    <article>
-      <div class="inner">
-        <span class="date">
-          <span class="year">2025</span>
-        </span>
+        <span class="date">2023-2025</span> <span class="label">Professional</span>
         <h2>Data Merge Tool</h2>
         <small>C#/.NET/Entity Framework/SQL</small>
         <p>Built a tool to merge legacy datasets of customer application deployments into new enviornments with existing data. Functionality included ability to rewrite ID values based on destination data and update all data relationships to prevent collision/duplication of data. Product deployed at customer sites, source not publicly available.</p>
       </div>
     </article>
+
     <article>
       <div class="inner">
-        <span class="date">
-          <span class="year">2019</span>
-        </span>
+        <span class="date">2019</span> <span class="label">Professional</span>
         <h2>HL7 Visualization Web App</h2>
         <small>Angular/C#/.NET/SQL/HL7/Lucene</small>
         <p>Developed an interactive dashboard using AngularJS for real-time HL7 visualization. Includes color-coding and filters for analyzing patient data flow and performance indicators. Deployed to customer environments in 2020, source not publicly available.</p>
       </div>
     </article>
+
+      <article>
+      <div class="inner">
+        <span class="date">2018</span>
+        <h2>Deep YouTube</h2>
+        <small>C#/.NET/HTML/CSS <a href="https://deepvids.azurewebsites.net">Web app link</a> (API currently offline)</small>
+        <p>Created a .NET web app using the (now offline) YouTube API. The application presents the viewer with a youtube video where they are the very first viewer. The user can click "next" and be presented with a new, never-before-seen video. App currently non functional due to YouTube API changes.</p>
+      </div>
+    </article>
+
+
     <article>
       <div class="inner">
-        <span class="date">
-          <span class="year">2017</span>
-        </span>
+        <span class="date">2018-2023</span> <span class="label">Professional</span>
+        <h2>Active Directory Integration for ASP/ASP.NET applications</h2>
+        <small>ASP/ASP.NET/VBScript/C#</small>
+        <p>Built integrations for .net and classic ASP web applications to sync with Windows Active Directory through thick-client viewers and Windows API hooks. In use in various customer applications 2018-2023, source not publicly available.</p>
+      </div>
+    </article>
+
+    <article>
+      <div class="inner">
+        <span class="date">2017</span> <span class="label">Professional</span>
         <h2>Fax Integration for Critical Results</h2>
         <small>HTML/JS/ASP/VBScript</small>
         <p>Co-developed functionality to automatically fax critical healthcare results to medical staff using PACS and RightFax API integration. Product in use by customers from 2017-2022. Source code not available.</p>
       </div>
     </article>
-    <article>
+
+        <article>
       <div class="inner">
-        <span class="date">
-          <span class="year">2014</span>
-        </span>
+        <span class="date">2014</span> <span class="label">Professional</span>
         <h2>Inventory Management System</h2>
         <small>PHP/JS/HTML</small>
         <p>Wrote and deployed a web application with barcode reader integration to track and manage locations of organization assets. Developed for Northern Arizona Unviversity.</p>
-      </div>
-    </article>
-    <article>
-      <div class="inner">
-        <span class="date">
-          <span class="year">2018-2023</span>
-        </span>
-        <h2>Active Directory Integration for ASP/ASP.NET applications</h2>
-        <small>ASP/ASP.NET/VBScript/C#</small>
-        <p>Built integrations for .net and classic ASP web applications to sync with Windows Active Directory through thick-client viewers and Windows API hooks. In use in various customer applications 2018-2023, source not publicly available.</p>
       </div>
     </article>
   </section>
@@ -926,9 +933,7 @@ section {
   <section id="creative-timeline">
     <article>
       <div class="inner">
-        <span class="date">
-          <span class="year">2025</span>
-        </span>
+        <span class="date">2025</span>
         <h2>Photography @Earthling.fyi (May 25)</h2>
         <small><a href="https://earthling.fyi/">Earthling.fyi</a></small>
         <p>Photographer for Earthling, an outdoor gathering for experimental music. Photographs produced using experimental techniques on film and digital, some photos developed by hand. Photos currently available on Instagram</p>
@@ -936,9 +941,7 @@ section {
     </article>
     <article>
       <div class="inner">
-        <span class="date">
-          <span class="year">2025</span>
-        </span>
+        <span class="date">2025</span>
         <h2>Photography @Baukunst (Feb 25)</h2>
         <small><a href="https://www.linkedin.com/posts/baukunstco_thanks-to-all-who-joined-us-a-couple-weeks-activity-7298426835892088832-D_FB/">LinkedIn</a></small>
         <p>Photographer for an event at Baukunst in San Francisco showcasing a NeXT computer teardown with K. Haven of Acorn Product Development.</p>
@@ -946,8 +949,7 @@ section {
     </article>
     <article>
       <div class="inner">
-        <span class="date"><span class="year">2024</span>
-        </span>
+        <span class="date">2024</span>
           <h2>Photography @Earthling.fyi (Oct 24)</h2>
         <small><a href="https://earthling.fyi/">Earthling.fyi</a></small>
         <p>Experimental Film + Digital photos. Photos currently available on the Earthling website and on Instagram</p>
@@ -955,28 +957,25 @@ section {
     </article>
     <article>
       <div class="inner">
-        <span class="date">
-          <span class="year">2014</span>
-        </span>
-        <h2>Snowfall Tapes</h2>
-        <small><a href="https://snowfalltapes.tumblr.com">Snowfalltapes.tumblr.com</a></small>
-        <p>Produced and distributed cassettes and digital releases for over 30 artists. Handled graphic design, cassette duplication, distribution, promotion and online platform development. Became the #1 release on Bandcamp.com in 2014</p>
+        <span class="date">2024-2025</span>
+        <h2>Brand Design</h2>
+        <p>Created brand graphics including logos and flyers for musicians and art events in San Francisco. Graphics were promoted on Instagram and developed into merch (stickers/magnets) by the clients.</p>
       </div>
+    </article>
     </article>
     <article>
       <div class="inner">
-        <span class="date">
-          <span class="year">2024-2025</span>
-        </span>
-        <h2>Brand Design</h2>
-        <p>Created brand graphics including logos and flyers for musicians and art events in San Francisco. Graphics were promoted on Instagram and developed into merch (stickers/magnets) by the clients.</p>
+        <span class="date">2017</span>
+        <h2>Snowfall Tapes</h2>
+        <small><a href="https://snowfalltapes.tumblr.com">Snowfalltapes.tumblr.com</a></small>
+        <p>Produced and distributed cassettes and digital releases for over 30 artists. Handled graphic design, cassette duplication, distribution, promotion and online platform development. Became the #1 release on Bandcamp.com in 2014</p>
       </div>
     </article>
   </section>
 </div>
 <button class="collapsible3">𝓒ontact</button>
 <div class="content">
-  <center>Hello! My name is Rick. You can find me on<br /><a href="https://www.linkedin.com/in/rrrrmeredith/">LinkedIn</a> and <a href="https://github.com/rickzor">Github</a><br /><br/>For CV requests, send an email to <a href="mailto:r@ickmeredith.com">r@ickmeredith.com</a></p></center>
+  <br /><center>Hello! My name is Rick. You can find me on<br /><a href="https://www.linkedin.com/in/rrrrmeredith/">LinkedIn</a> and <a href="https://github.com/rickzor">Github</a><br /><br/>For CV requests, send an email to <a href="mailto:r@ickmeredith.com">r@ickmeredith.com</a></p></center>
   <div class="images">
   <img class="image" src="./img/1.jpg">
   <img class="image" src="./img/2.jpg">
@@ -1389,6 +1388,11 @@ function initializeCardClicks() {
 
 // Separate function for the click handler
 function cardClickHandler(e) {
+    // If the clicked element is a link, don't handle the card click
+    if (e.target.tagName === 'A' || e.target.closest('a')) {
+        return; // Let the link handle its own click
+    }
+    
     e.preventDefault();
     e.stopPropagation();
     
@@ -1412,6 +1416,27 @@ function initializeCardInteractions() {
         initializeCardClicks();
     }, 100);
 }
+
+// Add click handler to collapse toolbar when clicking the title
+document.addEventListener('DOMContentLoaded', function() {
+    const isolateDiv = document.querySelector('.isolate');
+    if (isolateDiv) {
+        isolateDiv.addEventListener('click', function() {
+            // Close all collapsible sections
+            const allCollapsibles = document.querySelectorAll('.collapsible1, .collapsible2, .collapsible3');
+            allCollapsibles.forEach(collapsible => {
+                collapsible.classList.remove('active');
+                const content = collapsible.nextElementSibling;
+                if (content && content.classList.contains('content')) {
+                    content.style.maxHeight = null;
+                }
+            });
+            // Reset currently open to null
+            currentlyOpen = null;
+        });
+    }
+});
+
 (function() {
   var cssTransition, imageOffset, imageWidth, images, queue, timeout, touch;
   cssTransition = function() {
@@ -1478,6 +1503,13 @@ window.CP.exitedLoop(1);
   images.addEventListener((touch ? 'touchend' : 'click'), function(event) {
     // Only trigger carousel if the click/tap is NOT on an image
     if (event.target.classList.contains('image')) return;
+    
+    // Don't trigger carousel if we're in the Contact section
+    const contactButton = document.querySelector('.collapsible3');
+    if (contactButton && contactButton.classList.contains('active')) {
+      return; // Exit early if Contact is active
+    }
+    
     var direction, lastClassList;
     if (queue) {
       return;
