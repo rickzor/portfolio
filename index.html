@@ -1151,6 +1151,8 @@ let lastMouseX = 0;
 let lastMouseY = 0;
 let mouseVelocityX = 0;
 let mouseVelocityY = 0;
+let lastMouseTime = 0;
+let lastTouchTime = 0;
 
 // Physics constants
 const gravity = 0.5;
@@ -1183,6 +1185,7 @@ ball.addEventListener('mousedown', function(e) {
     startY = e.clientY - ball.offsetTop;
     lastMouseX = e.clientX;
     lastMouseY = e.clientY;
+    lastMouseTime = Date.now();
     mouseVelocityX = 0;
     mouseVelocityY = 0;
     ball.style.cursor = 'grabbing';
@@ -1201,6 +1204,7 @@ ball.addEventListener('touchstart', function(e) {
     startY = touch.clientY - ball.offsetTop;
     lastMouseX = touch.clientX;
     lastMouseY = touch.clientY;
+    lastTouchTime = Date.now();
     mouseVelocityX = 0;
     mouseVelocityY = 0;
     ball.style.cursor = 'grabbing';
@@ -1214,9 +1218,16 @@ ball.addEventListener('touchstart', function(e) {
 document.addEventListener('mousemove', function(e) {
     if (!isDragging) return;
     
-    // Calculate mouse velocity
-    mouseVelocityX = e.clientX - lastMouseX;
-    mouseVelocityY = e.clientY - lastMouseY;
+    // Calculate mouse velocity with better precision
+    const currentTime = Date.now();
+    const timeDelta = currentTime - (lastMouseTime || currentTime);
+    lastMouseTime = currentTime;
+    
+    if (timeDelta > 0) {
+        mouseVelocityX = (e.clientX - lastMouseX) / timeDelta * 16; // Scale for better sensitivity
+        mouseVelocityY = (e.clientY - lastMouseY) / timeDelta * 16;
+    }
+    
     lastMouseX = e.clientX;
     lastMouseY = e.clientY;
     
@@ -1241,9 +1252,16 @@ document.addEventListener('touchmove', function(e) {
     
     const touch = e.touches[0];
     
-    // Calculate touch velocity
-    mouseVelocityX = touch.clientX - lastMouseX;
-    mouseVelocityY = touch.clientY - lastMouseY;
+    // Calculate touch velocity with better precision
+    const currentTime = Date.now();
+    const timeDelta = currentTime - (lastTouchTime || currentTime);
+    lastTouchTime = currentTime;
+    
+    if (timeDelta > 0) {
+        mouseVelocityX = (touch.clientX - lastMouseX) / timeDelta * 16; // Scale for better sensitivity
+        mouseVelocityY = (touch.clientY - lastMouseY) / timeDelta * 16;
+    }
+    
     lastMouseX = touch.clientX;
     lastMouseY = touch.clientY;
     
