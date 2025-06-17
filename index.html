@@ -1416,6 +1416,27 @@ function initializeCardInteractions() {
         initializeCardClicks();
     }, 100);
 }
+
+// Add click handler to collapse toolbar when clicking the title
+document.addEventListener('DOMContentLoaded', function() {
+    const isolateDiv = document.querySelector('.isolate');
+    if (isolateDiv) {
+        isolateDiv.addEventListener('click', function() {
+            // Close all collapsible sections
+            const allCollapsibles = document.querySelectorAll('.collapsible1, .collapsible2, .collapsible3');
+            allCollapsibles.forEach(collapsible => {
+                collapsible.classList.remove('active');
+                const content = collapsible.nextElementSibling;
+                if (content && content.classList.contains('content')) {
+                    content.style.maxHeight = null;
+                }
+            });
+            // Reset currently open to null
+            currentlyOpen = null;
+        });
+    }
+});
+
 (function() {
   var cssTransition, imageOffset, imageWidth, images, queue, timeout, touch;
   cssTransition = function() {
