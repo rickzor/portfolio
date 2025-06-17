@@ -1482,6 +1482,13 @@ window.CP.exitedLoop(1);
   images.addEventListener((touch ? 'touchend' : 'click'), function(event) {
     // Only trigger carousel if the click/tap is NOT on an image
     if (event.target.classList.contains('image')) return;
+    
+    // Don't trigger carousel if we're in the Contact section
+    const contactButton = document.querySelector('.collapsible3');
+    if (contactButton && contactButton.classList.contains('active')) {
+      return; // Exit early if Contact is active
+    }
+    
     var direction, lastClassList;
     if (queue) {
       return;
