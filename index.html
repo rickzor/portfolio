@@ -847,13 +847,31 @@ section {
 .collapsible3 + .content .images .image:last-child {
     transform: rotate(-5deg) !important;
 }
+
+/* Remove animation but keep transition for toolbar/content window in Firefox only */
+@-moz-document url-prefix() {
+  .content {
+    animation: none !important;
+    transform: none !important;
+    transform-origin: initial !important;
+    opacity: 0;
+    max-height: 0;
+  }
+  .active + .content {
+    animation: none !important;
+    transform: none !important;
+    transform-origin: initial !important;
+    opacity: 1;
+    max-height: 3000px;
+  }
+}
 </style>
 
 <div class="ball" id="ball"></div>
 
 <section>
   <div class="isolate">
-    <div class="noise"> ʷʷʷ. 𝓡i𝚌k Ⓜℰrℰdit𝓱  ➫ • 𝓞nlin𝓮</div>
+    <div class="noise">ʷʷʷ . 𝓡i𝚌k Ⓜℰrℰdit𝓱 <center>ᴼ ᴺ ᴸ ᴵ ᴺ ᴱ</center></div>
     <div class="overlay"></div>
   </div>
 </section>
@@ -1142,6 +1160,13 @@ for (let i = 0; i < coll.length; i++) {
 
 // 3D Ball Interaction
 const ball = document.getElementById('ball');
+
+// Hide the ball in Firefox
+const isFirefox = typeof navigator !== "undefined" && /firefox/i.test(navigator.userAgent);
+if (isFirefox && ball) {
+    ball.style.display = 'none';
+}
+
 let isDragging = false;
 let startX, startY, ballX, ballY;
 let velocityX = 0;
